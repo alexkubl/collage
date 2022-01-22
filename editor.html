@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editor</title>
+</head>
+<style>
+    @font-face {
+        font-family: "Gotham Pro";
+        src: url(gothampro.ttf);
+    }
+    @font-face {
+        font-family: "Gotham Pro Medium";
+        src: url(gothampro_medium.ttf);
+    }
+    body {
+        margin: 2%;
+    }
+    h2 {
+        margin: 1%;
+        font-family: "Gotham Pro Medium";
+    } 
+    p {
+        margin: 1%;
+        font-family: "Gotham Pro"; 
+    }
+    #background {
+        position: relative;
+        width: 70%;
+    }
+    #foreground {
+        left: 0;
+        top: 0;
+        position: relative;
+        z-index: 1;
+        
+    }
+
+    foreground#moving,
+    foreground#moving #foreground {
+	    cursor: grabbing;
+    }
+    #foreground#moving {
+	    cursor: grabbing;
+    }
+    .w {
+        border: 5px solid #000000;
+    }
+    #buttons {
+        font-family: "Gotham Pro";
+        margin: 1%;
+        display: inline-block;
+    }
+    .upload {
+        display: none;
+    }
+    
+</style>
+<body  onload="main()">
+    <h2>
+        Create collage
+    </h2>
+    <p>Upload background and foreground obejcts, and press the button "Create composition" to generate a custom layout</p>
+    <div id="buttons">
+        
+
+        <button><label for="uploadBackground">Upload Background</label></button>
+        <input class="upload" type="file" accept="image/*" id="uploadBackground">
+
+        <button><label for="uploadObjects">Upload foreground objects</label></button>
+        <input class="upload" type="file"  accept="image/*" id="uploadObjects" multiple >
+
+        <button id="compose"><label>Create Composition</label></button>
+        <!-- <input type="file" id="input" multiple> -->
+
+    </div>
+    <div id="background">
+        <div id="foreground">
+        </div>
+    </div>
+    <br></br>
+    <div id="buttons">
+        <button id="template">Use Template</button>
+        <button id="clearSpace">Clear space</button>
+        <button id="recompose">Re-compose</button>
+    </div>
+
+</body>
+
+<script src="index.js" defer></script>
+</html>
