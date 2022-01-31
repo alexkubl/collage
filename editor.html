@@ -30,9 +30,8 @@
     #foreground {
         left: 0;
         top: 0;
-        position: relative;
+        position: absolute;
         z-index: 1;
-        
     }
 
     foreground#moving,
@@ -55,33 +54,37 @@
     }
     
 </style>
-<body  onload="main()">
+<body onload="main()">
     <h2>
         Create collage
     </h2>
     <p>Upload background and foreground obejcts, and press the button "Create composition" to generate a custom layout</p>
     <div id="buttons">
         
-
         <button><label for="uploadBackground">Upload Background</label></button>
         <input class="upload" type="file" accept="image/*" id="uploadBackground">
 
         <button><label for="uploadObjects">Upload foreground objects</label></button>
         <input class="upload" type="file"  accept="image/*" id="uploadObjects" multiple >
-
+        
         <button id="compose"><label>Create Composition</label></button>
-        <!-- <input type="file" id="input" multiple> -->
-
+        <button id="clearSpace">Clear space</button>
+        
     </div>
     <div id="background">
         <div id="foreground">
+            <div hidden>
+                <img src="images/foreground/lucas-andrade-iSqCOCYglbU-unsplash.png">
+            </div>
+            <div hidden>
+                <img src="images/foreground/lucas-andrade-n6n41AU4wHM-unsplash.png" >
+            </div>
         </div>
+        <img id="backImg" src="images/background/amos-g-IrGYJPF0JS0-unsplash.jpg" hidden>
     </div>
     <br></br>
     <div id="buttons">
-        <button id="template">Use Template</button>
-        <button id="clearSpace">Clear space</button>
-        <button id="recompose">Re-compose</button>
+        
     </div>
 
 </body>
