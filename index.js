@@ -9,9 +9,11 @@ let input = null;
 const foreground = document.getElementById('foreground');
 const background = document.getElementById('background');
 
-uploadTemplate();
+
+
 
 window.addEventListener('DOMContentLoaded', (event) => {
+    uploadTemplate();
 });
 
 window.addEventListener('load', function() {
@@ -90,37 +92,21 @@ function uploadForegroundObjects() {
                 {
                     x: 0,
                     y: 0,
-                    height: this.height, 
-                    width: this.width,
+                    height: this.naturalHeight, 
+                    width: this.naturalWidth,
                 }, 
             );
             let div = document.createElement('div');
+            
             foreground.appendChild(div).setAttribute('id', img.src);
+
             div.insertBefore(Images.images.get(img.src).image, div.firstChild);
+            
             addObject(img.src, background.getAttribute('height'), background.getAttribute('width'));
         };
     }
 }
 
-function addObject(src, h, w) {
-    let node = document.getElementById(src);
-    const img = node.firstElementChild;
-    let imgHeight = img.height, imgNewHeight = getRandomProp() * h;
-    let imgNewWidth = img.width/imgHeight * imgNewHeight;
-    let x0 = (w - imgNewWidth) * getRandomProp(), 
-        y0 = (h - imgNewHeight) * getRandomProp();
-    Images.updateImage(img, {
-        x: x0,
-        y: y0,
-        height: imgNewHeight,
-        width: imgNewWidth,
-    })
-    node.hidden = false;
-    node.setAttribute('id', img.src);
-    node.setAttribute('width', imgNewWidth);
-    node.setAttribute('height', imgNewHeight);
-    node.setAttribute('style', `position: absolute; left:${x0}px; top:${y0}px; z-index:auto; cursor: grab;`);           
-}
 
 function compose() {
     // send query - call function in 
@@ -128,15 +114,17 @@ function compose() {
     // display updated objects
     // createRequest(); // send request to server
     let h = background.getAttribute('height'), w = background.getAttribute('width');
-    for (const node of foreground.children) {
-        let img = node.getAttribute('id');
-        addObject(img, h, w);
+    for (const node of foreground.childNodes) {
+        if (node.nodeType == 1) {
+            console.log(node);
+            let img = node.getAttribute('id');
+            addObject(img, h, w);
+        }
     }
 } 
 
 function loadBack () {
     let node = document.getElementById('backImg');
-    let z = 1;
     let h = node.height/node.width, w = node.width;
     if (h > 1) {
         w = window.innerHeight * 0.8 / h; 
@@ -146,8 +134,6 @@ function loadBack () {
         w = window.innerHeight * 0.8;
         h *= w;
     }
-    h = Math.round(h);
-    w = Math.round(w);
     Images.addImage(
         node.src, {
             x: 0,
@@ -177,6 +163,38 @@ function uploadTemplate() {
             addObject(img.src, h, w);
         }
     }
+    
+}
+
+function addObject(src, h, w) {
+    let node = document.getElementById(src);
+    let img = node.firstElementChild;
+    let imgHeight = img.height;
+    let imgWidth = img.width;
+    let imgNewHeight = imgHeight, imgNewWidth = imgWidth;
+
+    if (imgHeight > imgWidth) {
+        imgNewHeight = getRandomProp() * h;
+        imgNewWidth = imgWidth/imgHeight * imgNewHeight;
+    }
+    else {
+        imgNewWidth = getRandomProp() * w;
+        imgNewHeight = imgHeight/imgWidth * imgNewWidth;
+    }
+    
+    let x0 = (w - imgNewWidth) * getRandomProp(), 
+        y0 = (h - imgNewHeight) * getRandomProp();
+    Images.updateImage(img, {
+        x: x0,
+        y: y0,
+        height: imgNewHeight,
+        width: imgNewWidth,
+    })
+    node.hidden = false;
+    node.setAttribute('id', img.src);
+    node.setAttribute('width', imgNewWidth);
+    node.setAttribute('height', imgNewHeight);
+    node.setAttribute('style', `position: absolute; left:${x0}px; top:${y0}px; z-index:auto; cursor: grab;`);           
 }
 
 function clearBackground() {
