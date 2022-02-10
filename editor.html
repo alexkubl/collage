@@ -16,16 +16,19 @@
         margin: 2%;
     }
     h2 {
-        margin: 1%;
+        margin: 2%;
+        margin-top: 3%;
         font-family: "Gotham Pro Medium";
     } 
     p {
-        margin: 1%;
+        margin: 2%;
         font-family: "Gotham Pro"; 
+        font-size: 16px;
+        width:80%;
     }
     #background {
+        margin: 2%;
         position: relative;
-        width: 70%;
     }
     #foreground {
         left: 0;
@@ -37,39 +40,51 @@
     foreground#moving,
     foreground#moving #foreground {
 	    cursor: grabbing;
+        
     }
     #foreground#moving {
 	    cursor: grabbing;
+       
     }
-    .w {
-        border: 5px solid #000000;
+    button {
+        text-decoration:none;
+        font-family: "Gotham Pro Medium";
+        border-radius: 1em;
+        border:none;
+        background-color: #F5F5F5;
+        padding: 0.7em 1.5em;
+        margin-right: 1%;
+        margin-bottom: 1%;
     }
-    #buttons {
-        font-family: "Gotham Pro";
-        margin: 1%;
+    #buttons, #buttons2 {
+        margin-left: 2%;
         display: inline-block;
+        align-items: flex-start;
     }
     .upload {
         display: none;
     }
-    
+    #comment {
+        color: #666666;
+        width:80%;
+        margin: 2%;
+        font-size: 14px;
+    }
 </style>
-<body onload="main()">
+<body>
     <h2>
         Create collage
     </h2>
-    <p>Upload background and foreground obejcts, and press the button "Create composition" to generate a custom layout</p>
+    <p>Use template, upload background and foreground obejcts for creating a layout!</p>
     <div id="buttons">
         
         <button><label for="uploadBackground">Upload Background</label></button>
         <input class="upload" type="file" accept="image/*" id="uploadBackground">
 
         <button><label for="uploadObjects">Upload foreground objects</label></button>
-        <input class="upload" type="file"  accept="image/*" id="uploadObjects" multiple >
+        <input class="upload" type="file"  accept="image/*" id="uploadObjects" multiple>
         
-        <button id="compose"><label>Create Composition</label></button>
-        <button id="clearSpace">Clear space</button>
-        
+        <button id="downloadComp">Download</button>
     </div>
     <div id="background">
         <div id="foreground">
@@ -82,12 +97,18 @@
         </div>
         <img id="backImg" src="images/background/amos-g-IrGYJPF0JS0-unsplash.jpg" hidden>
     </div>
-    <br></br>
-    <div id="buttons">
-        
+    <p>You can move objects and resize them on double click</p>
+    <p>Press the button "Create composition" to generate a custom layout</p>
+    
+    <div id="buttons2">
+        <button id="clearSpace">Clear space</button>
+        <button id="clearForeground">Clear foreground</button>
+        <button id="compose"><label>Create Composition</label></button>
     </div>
+    <p id="comment">Press the button "Upload Background" to change it to custom one keeping the same objects</p>
+    <br></br>
 
 </body>
 
-<script src="index.js" defer></script>
+<script type="module" src="index.js" defer></script>
 </html>
